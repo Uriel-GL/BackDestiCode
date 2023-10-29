@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BackDestiCode.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackDestiCode.Data.Context
 {
@@ -8,5 +9,7 @@ namespace BackDestiCode.Data.Context
         {
             
         }
+        public DbSet<DatosPersonales> DatosPersona { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
     }
 }
