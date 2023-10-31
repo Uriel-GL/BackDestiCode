@@ -8,8 +8,19 @@ namespace BackDestiCode.AutoMapper
     {
         public MappingProfile()
         {
-            CreateMap<DatosPersonales, DatosPersonalesDto>().ReverseMap();
-            CreateMap<Usuarios, UsuariosDto>().ReverseMap();
+            CreateMap<DatosPersonales, DatosPersonalesDto>()
+                //.ForMember(fk => fk.Usuario, fk => fk.MapFrom(x => x.Usuario))
+                .ReverseMap();
+
+            CreateMap<Usuarios, UsuariosDto>()
+                //.ForMember(fk => fk.DatosPersonales, fk => fk.MapFrom(x => x.DatosPersonales))
+                .ReverseMap();
+
+            CreateMap<Usuarios, AuthRegister>()
+                .ReverseMap();
+
+            CreateMap<DatosPersonales, AuthRegister>()
+                .ReverseMap();
         }
     }
 }
