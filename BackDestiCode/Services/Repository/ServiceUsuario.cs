@@ -3,7 +3,6 @@ using BackDestiCode.Data.Context;
 using BackDestiCode.Data.Models;
 using BackDestiCode.DTOs;
 using BackDestiCode.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace BackDestiCode.Services.Repository
 {
@@ -16,91 +15,45 @@ namespace BackDestiCode.Services.Repository
             _context = context;
             _mapper = mapper;
         }
-        public async Task<List<DatosPersonalesDto>> GetUsuarios()
-        {
-            List<DatosPersonalesDto> usuariosDto = new List<DatosPersonalesDto>();
-            try
-            {
-                var usuarios = await _context.DatosPersona.ToListAsync();
-                usuariosDto = _mapper.Map<List<DatosPersonales>, List<DatosPersonalesDto>>(usuarios);
-
-            }
-            catch (Exception ex)
-            {
-
-                string msg = ex.Message;
-            }
-            return usuariosDto;
-        }
-
-        public async Task<bool> InsertUsuario(DatosPersonalesDto usuario)
+        public async Task<bool> Registrar(UsuariosDto usuario)
         {
             var respuesta = false;
-            if (usuario != null)
+            if (usuario != null) 
             {
                 try
                 {
-                    var estatus = true;
                     var id = Guid.NewGuid();
-                    var usuarioDto = new DatosPersonalesDto { 
-                        Nombre_Completo = usuario.Nombre_Completo,
-                        
-                        Credencial = usuario.Credencial,
-                        Fecha_Nacimiento = usuario.Fecha_Nacimiento,
+                    var usuarioDto = new UsuariosDto
+                    {
+                        Id_Usuario = id,
+                        Nombre_Usuario = usuario.Nombre_Usuario,
                         Correo = usuario.Correo,
-                        Grupo = usuario.Grupo,
-                        Matricula = usuario.Matricula,
-                        Telefono = usuario.Telefono,
-                        Universidad = usuario.Universidad,
-                        Estatus = estatus,
-                        Id_Usuario = id
+                        Fecha_Registro = usuario.Fecha_Registro,
+                        Contrasenia = usuario.Contrasenia,
+                        Token = usuario.Token
                     };
-                    var usuarioNuevo = _mapper.Map<DatosPersonalesDto, DatosPersonales>(usuarioDto);
-                    await _context.DatosPersona.AddAsync(usuarioNuevo);
+                    var usuarioNuevo = _mapper.Map<UsuariosDto, Usuarios>(usuarioDto);
+                    await _context.Usuarios.AddAsync(usuarioNuevo);
                     await _context.SaveChangesAsync();
                     respuesta = true;
                 }
                 catch (Exception ex)
                 {
+
                     var msg = ex.Message;
                     respuesta = false;
                 }
             } else { respuesta = false; }
             return respuesta;
         }
-
-        public async Task<bool> UpdateUsuario(DatosPersonalesDto usuario)
+        public async Task<bool> Validar(string nombreUsuario, string contrasenia)
         {
             var respuesta = false;
-            var user = await _context.Usuarios.FindAsync(usuario.Id_Usuario);
-            if (user != null)
+            var usuario = _context.Usuarios.Where(x => x.Nombre_Usuario == nombreUsuario && x.Contrasenia == contrasenia).FirstOrDefault();
+            if (usuario != null)
             {
-                try
-                {
-                    var usuarioDto = new DatosPersonalesDto
-                    {
-                        Nombre_Completo = usuario.Nombre_Completo,
-                        Correo = usuario.Correo,
-                        Credencial = usuario.Credencial,
-                        Fecha_Nacimiento = usuario.Fecha_Nacimiento,
-                        Grupo = usuario.Grupo,
-                        Matricula = usuario.Matricula,
-                        Telefono = usuario.Telefono,
-                        Universidad = usuario.Universidad,
-                        Estatus = usuario.Estatus,
-                        Id_Usuario = usuario.Id_Usuario
-                    };
-                    _mapper.Map<DatosPersonalesDto, DatosPersonales>(usuarioDto);
-                    await _context.SaveChangesAsync();
-                    respuesta = true;
-                }
-                catch (Exception ex)
-                {
-                    var msg = ex.Message;
-                    respuesta = false;
-                }
-            }
-            else { respuesta = false; }
+                respuesta = true;
+            } else { respuesta = false; }
             return respuesta;
         }
     }
