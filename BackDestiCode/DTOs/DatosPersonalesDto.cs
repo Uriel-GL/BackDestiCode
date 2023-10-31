@@ -1,7 +1,10 @@
-﻿namespace BackDestiCode.DTOs
+﻿using BackDestiCode.Data.Models;
+
+namespace BackDestiCode.DTOs
 {
     public class DatosPersonalesDto
     {
+        public Guid Id_DatosPersonales { get; set; }
         public Guid Id_Usuario { get; set; }
         public string Nombre_Completo { get; set; }
         public DateTime Fecha_Nacimiento { get; set; }
@@ -12,5 +15,8 @@
         public Int64 Telefono { get; set; }
         public string Correo { get; set; }
         public bool Estatus { get; set; }
+
+        //Foreign Key 
+        //public Usuarios Usuario { get; set; }
     }
 }
