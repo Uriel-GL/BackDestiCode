@@ -17,6 +17,7 @@ namespace BackDestiCode.Data.Models
         public string Correo { get; set; }
         public bool Estatus { get; set; }
 
+        //Relaciones
         public Usuarios Usuarios { get; set; }
     }
 }

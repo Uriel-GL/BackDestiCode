@@ -12,6 +12,10 @@ namespace BackDestiCode.Data.Models
         public DateTime Fecha_Registro { get; set; }
         public bool Estatus { get; set; }
 
-        public ICollection<DatosPersonales> DatosPersonales { get; set; }
+        //Relaciones
+        public ICollection<DatosPersonales>? DatosPersonales { get; set; }
+        public ICollection<Vehiculos>? Vehiculos { get; set; }
+        public ICollection<Rutas>? Rutas { get; set; }
+        public ICollection<Reservaciones>? Reservaciones { get; set; }
     }
 }
