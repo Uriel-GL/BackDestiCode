@@ -2,15 +2,16 @@
 {
     public class Rutas
     {
-        public int Id_Ruta { get; set; }
-        public int Id_Unidad { get; set; }
-        public int Id_Usuario { get; set; }
-        public int Lugar_Salida { get; set; }
-        public int Lugar_Destino { get; set; }
-        public int Fecha_Salida { get; set; }
-        public int Costo { get; set; }
+        //El Id _ruta se modifico a guid
+        public Guid Id_Ruta { get; set; }
+        public Guid Id_Unidad { get; set; }
+        public Guid Id_Usuario { get; set; }
+        public string Lugar_Salida { get; set; }
+        public string Lugar_Destino { get; set; }
+        public DateTime Fecha_Salida { get; set; }
+        public double Costo { get; set; }
         public int Lugares_Dispinibles { get; set; }
-        public int Estatus { get; set; }
+        public bool Estatus { get; set; }
 
         //Relaciones
         public Usuarios Usuarios { get; set; }
