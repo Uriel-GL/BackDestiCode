@@ -15,7 +15,8 @@ namespace BackDestiCode.Controllers
         {
             _rutasService = rutaService;
         }
-        [HttpPost]
+
+        [HttpPost("RegistarRuta")]
         public async Task<IActionResult> RegistrarRuta([FromBody] RutasDto rutasDto)
         {
             try
@@ -39,6 +40,38 @@ namespace BackDestiCode.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, "Error interno del servidor: " + ex.Message);
+            }
+        }
+
+        [HttpPost("ReservarLugar")]
+        public async Task<IActionResult> ReservarLugar([FromBody] ReservacionRequest request)
+        {
+            try
+            {
+                var response = await _rutasService.ReservarLugar(request);
+
+                return Ok(response);
+            }
+            catch(Exception ex)
+            {
+                string msg = ex.Message;
+                return BadRequest("Error al reservar un lugar en la ruta.");
+            }
+        }
+
+        [HttpPost("CancelarLugar")]
+        public async Task<IActionResult> CancelarLugar([FromBody] CancelacionRequest cancelacion)
+        {
+            try
+            {
+                var response = await _rutasService.CancelarReservacion(cancelacion);
+
+                return response == true ? Ok(response) : BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;
+                return BadRequest("Error al cancelar tu lugar en la ruta.");
             }
         }
 

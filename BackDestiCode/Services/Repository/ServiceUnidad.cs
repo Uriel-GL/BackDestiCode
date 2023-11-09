@@ -15,6 +15,33 @@ namespace BackDestiCode.Services.Repository
             _context = context;
             _mapper = mapper;
         }
+
+        public async Task<bool> Actualizar(Vehiculos vehiculo)
+        {
+            bool respuesta = false;
+            try
+            {
+                var unidad = _context.Vehiculos.Where(id => id.Id_Unidad.Equals(vehiculo.Id_Unidad)).FirstOrDefault();
+
+                if (unidad != null)
+                {
+                    unidad.Color = vehiculo.Color;
+                    unidad.Placa = vehiculo.Placa;
+                    unidad.Imagen = vehiculo.Imagen;
+                    unidad.Modelo = vehiculo.Modelo;
+
+                    await _context.SaveChangesAsync();
+                    respuesta = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;
+            }
+
+            return respuesta;
+        }
+
         public async Task<bool> Registrar(VehiculosDto vehiculos)
         {
             var respuesta = false;
@@ -41,7 +68,6 @@ namespace BackDestiCode.Services.Repository
                 }
                 catch (Exception ex)
                 {
-
                     var msg = ex.Message;
                     respuesta = false;
                 }
