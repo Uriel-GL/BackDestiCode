@@ -23,6 +23,8 @@ namespace BackDestiCode.AutoMapper
                 .ReverseMap();
 
             CreateMap<Vehiculos, VehiculosDto>().ReverseMap();
+
+            CreateMap<Rutas, RutasDto>().ReverseMap();
         }
     }
 }
