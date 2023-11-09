@@ -2,6 +2,7 @@
 using BackDestiCode.Data.Context;
 using BackDestiCode.Data.Models;
 using BackDestiCode.DTOs;
+using BackDestiCode.Security;
 using BackDestiCode.Services.Interfaces;
 
 namespace BackDestiCode.Services.Repository
@@ -11,13 +12,15 @@ namespace BackDestiCode.Services.Repository
         private readonly ApiDbContext _context;
         private readonly IMapper _mapper;
         private readonly IJwtService _jwtService;
+        private readonly IEncrypt _encrypt;
         private AuthResponse _authResponse;
 
-        public AuthService(ApiDbContext context, IMapper mapper, IJwtService jwtService)
+        public AuthService(ApiDbContext context, IMapper mapper, IJwtService jwtService, IEncrypt encrypt)
         {
             _context = context;
             _mapper = mapper;
             _jwtService = jwtService;
+            _encrypt = encrypt;
             _authResponse = new AuthResponse();
         }
 
@@ -43,6 +46,7 @@ namespace BackDestiCode.Services.Repository
         
         public async Task<AuthResponse> Validar(AuthRequest request)
         {
+            request.Contrasenia = _encrypt.AESEncrypt(request.Contrasenia);
             var usuario = _context.Usuarios.Where(x => 
                 x.Correo.Equals(request.Correo) && 
                 x.Contrasenia.Equals(request.Contrasenia))

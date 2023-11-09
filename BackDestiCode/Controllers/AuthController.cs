@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BackDestiCode.Data.Models;
 using BackDestiCode.DTOs;
+using BackDestiCode.Security;
 using BackDestiCode.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,12 +14,14 @@ namespace BackDestiCode.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _serviceUsuario;
+        private readonly IEncrypt _encrypt;
         private readonly IMapper _mapper;
 
-        public AuthController(IAuthService serviceUsuario, IMapper mapper)
+        public AuthController(IAuthService serviceUsuario, IMapper mapper, IEncrypt encrypt)
         {
             _serviceUsuario = serviceUsuario;
             _mapper = mapper;
+            _encrypt = encrypt;
 
         }
 
@@ -36,6 +39,7 @@ namespace BackDestiCode.Controllers
         {
             try
             {
+                _encrypt.AESEncrypt(registro.Usuario.Contrasenia);
                 var usuario = _mapper.Map<UsuariosDto, Usuarios>(registro.Usuario);
                 var datosUsuario = _mapper.Map<DatosPersonalesDto, DatosPersonales>(registro.DatosPersonales);
 

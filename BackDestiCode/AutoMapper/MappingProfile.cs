@@ -21,6 +21,8 @@ namespace BackDestiCode.AutoMapper
 
             CreateMap<DatosPersonales, AuthRegister>()
                 .ReverseMap();
+
+            CreateMap<Vehiculos, VehiculosDto>().ReverseMap();
         }
     }
 }
