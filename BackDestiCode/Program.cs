@@ -1,5 +1,6 @@
 using BackDestiCode.Data.Context;
 using BackDestiCode.DTOs;
+using BackDestiCode.Security;
 using BackDestiCode.Services.Interfaces;
 using BackDestiCode.Services.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,6 +33,8 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IServiceUnidad, ServiceUnidad>();
+//Configuración de la encriptación
+builder.Services.AddScoped<IEncrypt, Encrypt>();
 
 // Configuracion de uso de Jwt en la Api 
 var keySecret = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("JwtSettings:Secret"));
