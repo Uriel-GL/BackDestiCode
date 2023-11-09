@@ -63,6 +63,10 @@ namespace BackDestiCode.Data.Context
             {
                 dp.HasKey(pk => pk.Id_Unidad);
 
+                dp.HasMany(u => u.Rutas)
+                    .WithOne(dp => dp.Vehiculos)
+                    .HasForeignKey(fk => fk.Id_Ruta);
+
             });
 
             base.OnModelCreating(modelBuilder);
