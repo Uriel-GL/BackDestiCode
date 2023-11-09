@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace BackDestiCode.Services.Repository
@@ -16,7 +17,6 @@ namespace BackDestiCode.Services.Repository
         {
             _jwtOptions = jwtOptions.Value;
         }
-
         public string GenerateToken(string NameUser, string IdUser)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
