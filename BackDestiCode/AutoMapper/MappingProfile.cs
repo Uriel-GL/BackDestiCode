@@ -22,9 +22,11 @@ namespace BackDestiCode.AutoMapper
             CreateMap<DatosPersonales, AuthRegister>()
                 .ReverseMap();
 
-            CreateMap<Vehiculos, VehiculosDto>().ReverseMap();
+            CreateMap<Vehiculos, VehiculosDto>()
+                .ReverseMap();
 
-            CreateMap<Rutas, RutasDto>().ReverseMap();
+            CreateMap<Rutas, RutasDto>()
+                .ReverseMap();
         }
     }
 }
