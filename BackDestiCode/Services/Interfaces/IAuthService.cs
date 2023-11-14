@@ -7,5 +7,9 @@ namespace BackDestiCode.Services.Interfaces
     {
         Task<bool> Registrar(Usuarios usuario, DatosPersonales datosUsuario);
         Task<AuthResponse> Validar(AuthRequest request);
+        Task<bool> RecuperarContrasenia(RecuperarContraseniaRequest request);
+        Task<bool> EnviarCorreo(CorreoRequest request);
+        Task<bool> VerificarTokenRecuperacion(RecuperarContraseniaRequest request);
+        Task<bool> ResetearContrasenia(RecuperarContraseniaRequest request);
     }
 }

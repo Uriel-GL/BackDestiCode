@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "l5AkI/xJLRMS5a1gwZqd4aE8bEJODLvp/+WXdNvNXzKnIIr914gCiqzUQWmE8mLUsy9jTTOEVj/Bc80lnOn7Dw==",
+  "dgSpecHash": "qg2zXtCWU5sGPLjxLjbzSQTV/ZeAKITYSG6U0rzKYyqXA3kZpcke1EKRzlMRpdMGTBjVXo+NGnwk6xbErioiyA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\DiegoGo Ar\\Source\\Repos\\BackDestiCode\\BackDestiCode\\BackDestiCode.csproj",
+  "projectFilePath": "C:\\Users\\DiegoGo Ar\\source\\repos\\BackDestiCode\\BackDestiCode\\BackDestiCode.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DiegoGo Ar\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\DiegoGo Ar\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
