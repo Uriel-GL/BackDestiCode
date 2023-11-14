@@ -76,5 +76,29 @@ namespace BackDestiCode.Services.Repository
             return respuesta;
         }
 
+        public async Task<bool> Eliminar(Guid id_Unidad)
+        {
+            try
+            {
+                var unidadAEliminar = await _context.Vehiculos.FindAsync(id_Unidad);
+
+                if (unidadAEliminar == null)
+                {
+                    return false; // La unidad no existe
+                }
+
+                _context.Vehiculos.Remove(unidadAEliminar);
+                await _context.SaveChangesAsync();
+                return true; // Éxito al eliminar la unidad
+            }
+            catch (Exception ex)
+            {
+                // Registra la excepción para depuración
+                var msg = ex.Message;
+                return false; // Error al intentar eliminar la unidad
+            }
+        }
+
+
     }
 }
