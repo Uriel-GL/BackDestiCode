@@ -75,5 +75,28 @@ namespace BackDestiCode.Controllers
             }
         }
 
+        [HttpDelete("{id_Ruta}")]
+        public async Task<IActionResult> EliminarRuta(Guid id_Ruta)
+        {
+            try
+            {
+                bool resultado = await _rutasService.EliminarManual(id_Ruta);
+
+                if (resultado)
+                {
+                    return Ok("Ruta eliminada con éxito.");
+                }
+                else
+                {
+                    return NotFound("No se encontró la Ruta con el Id_Ruta proporcionado.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor: " + ex.Message);
+            }
+        }
+
+
     }
 }

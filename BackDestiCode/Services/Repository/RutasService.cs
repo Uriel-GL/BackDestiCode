@@ -152,6 +152,30 @@ namespace BackDestiCode.Services.Repository
                 throw new Exception("Ups, Ocurrio un error intenta mas tarde");
             }
         }
+
+        public async Task<bool> EliminarManual(Guid id_Ruta)
+        {
+            try
+            {
+                var rutaAEliminar = await _context.Rutas.FindAsync(id_Ruta);
+
+                if (rutaAEliminar == null)
+                {
+                    return false; // La unidad no existe
+                }
+
+                _context.Rutas.Remove(rutaAEliminar);
+                await _context.SaveChangesAsync();
+                return true; // Éxito al eliminar la unidad
+            }
+            catch (Exception ex)
+            {
+                // Registra la excepción para depuración
+                var msg = ex.Message;
+                return false; // Error al intentar eliminar la unidad
+            }
+        }
+
     }
 
 

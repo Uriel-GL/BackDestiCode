@@ -8,7 +8,7 @@
         public Guid Id_Usuario { get; set; }
         public string Lugar_Salida { get; set; }
         public string Lugar_Destino { get; set; }
-        public DateTime Fecha_Salida { get; set; }
+        public DateTime Fecha_Salidad { get; set; }
         public decimal Costo { get; set; }
         public int Lugares_Disponibles { get; set; }
         public bool Estatus { get; set; }
