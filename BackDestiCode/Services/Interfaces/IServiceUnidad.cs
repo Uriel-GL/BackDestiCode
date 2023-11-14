@@ -9,5 +9,7 @@ namespace BackDestiCode.Services.Interfaces
 
         Task<bool> Actualizar(Vehiculos vehiculo);
 
+        Task<bool> Eliminar(Guid id_Unidad);
+
     }
 }
