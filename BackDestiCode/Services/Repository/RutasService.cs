@@ -75,7 +75,7 @@ namespace BackDestiCode.Services.Repository
                         Id_Usuario = rutas.Id_Usuario,
                         Lugar_Salida = rutas.Lugar_Salida,
                         Lugar_Destino = rutas.Lugar_Destino,
-                        Fecha_Salidad = rutas.Fecha_Salidad,
+                        Fecha_Salida = rutas.Fecha_Salida,
                         Costo = rutas.Costo,
                         Lugares_Disponibles = rutas.Lugares_Disponibles,
                         Estatus = rutas.Estatus,
@@ -176,6 +176,133 @@ namespace BackDestiCode.Services.Repository
             }
         }
 
+        public async Task<List<RutasDto>> GetAllRutas()
+        {
+            try
+            {
+                var response = await _context.Rutas.ToListAsync();
+                var data = _mapper.Map<List<RutasDto>>(response);
+
+                return data;
+
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;
+                throw new Exception("Ocurrio un error al consultar las rutas, intenta mas tarde");
+            }
+        }
+
+        public async Task<List<RutasDto>> GetRutasByIdUsuario(Guid Id_Usuario)
+        {
+            try
+            {
+                var response = await _context.Rutas.Where(fk => fk.Id_Usuario.Equals(Id_Usuario)).ToListAsync();
+
+                var data = _mapper.Map<List<Rutas>, List<RutasDto>>(response).ToList();
+
+                return data;
+            }
+            catch(Exception ex)
+            {
+                string msg = ex.Message;
+                throw new Exception("Ocurrio un error al consultar tus rutas, intenta mas tarde");
+            }
+        }
+
+        public async Task<RutasDto> GetRutaByIdRuta(Guid Id_Ruta)
+        {
+            try
+            {
+                var response = await _context.Rutas.Where(pk => pk.Id_Ruta.Equals(Id_Ruta)).FirstOrDefaultAsync();
+                var data = _mapper.Map<Rutas, RutasDto>(response);
+
+                var usuario = _context.Usuarios.Include(p => p.DatosPersonales).Where(pk => pk.Id_Usuario.Equals(data.Id_Usuario)).FirstOrDefault();
+                var vehiculo = _context.Vehiculos.Include(p => p.Usuarios).Where(pk => pk.Id_Unidad.Equals(data.Id_Unidad)).FirstOrDefault();
+
+                data.Usuarios = new Usuarios 
+                {
+                    Id_Usuario = usuario.Id_Usuario,
+                    Nombre_Usuario = usuario.Nombre_Usuario,
+                    Correo = usuario.Correo,
+                    Estatus = usuario.Estatus,
+                };
+                data.Vehiculos = new Vehiculos 
+                {
+                    Id_Unidad = vehiculo.Id_Unidad,
+                    Id_Usuario = vehiculo.Id_Usuario,
+                    Color = vehiculo.Color,
+                    Imagen = vehiculo.Imagen,
+                    Modelo = vehiculo.Modelo,
+                    Placa = vehiculo.Placa
+                };
+
+                return data;
+            }
+            catch(Exception ex)
+            {
+                string msg = ex.Message;
+                throw new Exception("Ocurrio un error al consultar la ruta intenta mas tarde");
+            }
+        }
+
+        public async Task<List<UsuariosDto>> GetUsersByReservacion(Guid Id_Usuario)
+        {
+            try
+            {
+                //var listaUsuariosDeRuta = new List<Usuarios>();
+                //var response = await _context.Reservaciones
+                //    .Where(pk => pk.Id_Usuario.Equals(Id_Usuario))
+                //    .ToListAsync();
+
+                //foreach ( var item in response)
+                //{
+                //    var user = _context.Usuarios.Where(pk => pk.Id_Usuario.Equals(item.Id_Usuario)).FirstOrDefault();
+                //    listaUsuariosDeRuta.Add(user);
+                //}
+
+                //var data = _mapper.Map<List<Usuarios>, List<UsuariosDto>>(listaUsuariosDeRuta);
+
+                //return data;
+                var usuarios = await _context.Reservaciones.Where(x => x.Id_Usuario.Equals(Id_Usuario))
+                    .Select(reservacion => new UsuariosDto
+                    {
+                        Id_Usuario = reservacion.Id_Usuario,
+                        Nombre_Usuario = reservacion.Usuarios.Nombre_Usuario,
+                        Correo = reservacion.Usuarios.Correo
+                    }).ToListAsync();
+
+                return usuarios;
+            }
+            catch(Exception ex)
+            {
+                string msg = ex.Message;
+                throw new Exception("Ocurrio un error al consultar los usuarios que reservaron");
+            }
+        }
+
+        public async Task<List<RutasDto>> GetTicketsReservacion(Guid Id_Usuario)
+        {
+            try
+            {
+                var respuesta = await _context.Reservaciones.Where(x => x.Id_Usuario.Equals(Id_Usuario))
+                    .Select(reservacion => new RutasDto
+                    {
+                        Id_Ruta = reservacion.Id_Ruta,
+                        Id_Usuario = reservacion.Rutas.Id_Usuario,
+                        Fecha_Salida = reservacion.Rutas.Fecha_Salida,
+                        Lugar_Salida = reservacion.Rutas.Lugar_Salida,
+                        Lugar_Destino = reservacion.Rutas.Lugar_Destino,
+                    }).ToListAsync();
+
+                return respuesta;
+            }
+            catch(Exception ex)
+            {
+                string msg = ex.Message;
+                throw new Exception("Ocurrio un error al intenar consultar tus reservaciones");
+            }
+        }
     }
 
 

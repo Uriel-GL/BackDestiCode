@@ -9,12 +9,14 @@ namespace BackDestiCode.AutoMapper
         public MappingProfile()
         {
             CreateMap<DatosPersonales, DatosPersonalesDto>()
-                //.ForMember(fk => fk.Usuario, fk => fk.MapFrom(x => x.Usuario))
-                .ReverseMap();
+                .ForMember(fk => fk.Usuarios, fk => fk.MapFrom(x => x.Usuarios))
+                .ReverseMap()
+                .PreserveReferences();
 
             CreateMap<Usuarios, UsuariosDto>()
-                //.ForMember(fk => fk.DatosPersonales, fk => fk.MapFrom(x => x.DatosPersonales))
-                .ReverseMap();
+                .ForMember(fk => fk.DatosPersonales, fk => fk.MapFrom(x => x.DatosPersonales))
+                .ReverseMap()
+                .PreserveReferences();
 
             CreateMap<Usuarios, AuthRegister>()
                 .ReverseMap();
@@ -23,10 +25,20 @@ namespace BackDestiCode.AutoMapper
                 .ReverseMap();
 
             CreateMap<Vehiculos, VehiculosDto>()
-                .ReverseMap();
+                .ForMember(fk => fk.Usuarios, fk => fk.Ignore())
+                .ReverseMap()
+                .PreserveReferences();
 
             CreateMap<Rutas, RutasDto>()
-                .ReverseMap();
+                .ForMember(fk => fk.Usuarios, fk => fk.Ignore())
+                .ForMember(fk => fk.Vehiculos, fk => fk.Ignore())
+                .ReverseMap()
+                .PreserveReferences();
+
+            //CreateMap<RutasDto, Rutas>()
+            //    .ForMember(fk => fk.Usuarios, fk => fk.MapFrom(x => x.Usuarios))
+            //    .ForMember(fk => fk.Vehiculos, fk => fk.MapFrom(x => x.Vehiculos))
+            //    .ReverseMap();
         }
     }
 }

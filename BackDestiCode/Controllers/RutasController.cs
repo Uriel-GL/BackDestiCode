@@ -16,6 +16,40 @@ namespace BackDestiCode.Controllers
             _rutasService = rutaService;
         }
 
+        [HttpGet("GetRutasByUsuario/{Id_Usuario}")]
+        public async Task<ActionResult<List<RutasDto>>> GetRutaByIdUsuario(Guid Id_Usuario)
+        {
+            return Ok(
+                await _rutasService.GetRutasByIdUsuario(Id_Usuario)
+                );
+        }
+
+        [HttpGet("GetRutasByIdRuta/{Id_Ruta}")]
+        public async Task<ActionResult<RutasDto>> GetRutaByIdRuta(Guid Id_Ruta)
+        {
+            return Ok(
+                await _rutasService.GetRutaByIdRuta(Id_Ruta)
+                );
+        }
+
+        [HttpGet("GetAllRutas")]
+        public async Task<ActionResult<List<RutasDto>>> GetAll()
+        {
+            return Ok(await _rutasService.GetAllRutas());
+        }
+
+        [HttpGet("GetTicketsByUser/{Id_Usuario}")]
+        public async Task<ActionResult<List<RutasDto>>> GetTicketsByIdUsuario(Guid Id_Usuario)
+        {
+            return Ok(await _rutasService.GetTicketsReservacion(Id_Usuario));
+        }
+
+        [HttpGet("GetUsuariosReservaronRuta/{Id_Usuario}")]
+        public async Task<ActionResult<List<UsuariosDto>>> GetUsuariosReservaronRuta(Guid Id_Usuario)
+        {
+            return Ok(await _rutasService.GetUsersByReservacion(Id_Usuario));
+        }
+
         [HttpPost("RegistarRuta")]
         public async Task<IActionResult> RegistrarRuta([FromBody] RutasDto rutasDto)
         {

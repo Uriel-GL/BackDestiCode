@@ -79,3 +79,7 @@ C:\C# Projects\BackDestiCode\BackDestiCode\obj\Debug\net7.0\refint\BackDestiCode
 C:\C# Projects\BackDestiCode\BackDestiCode\obj\Debug\net7.0\BackDestiCode.pdb
 C:\C# Projects\BackDestiCode\BackDestiCode\obj\Debug\net7.0\BackDestiCode.genruntimeconfig.cache
 C:\C# Projects\BackDestiCode\BackDestiCode\obj\Debug\net7.0\ref\BackDestiCode.dll
+C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\System.Net.Http.Formatting.dll
+C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\System.Web.Http.dll
+C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll

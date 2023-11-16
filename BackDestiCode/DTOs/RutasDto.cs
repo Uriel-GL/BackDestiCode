@@ -1,4 +1,6 @@
-﻿namespace BackDestiCode.DTOs
+﻿using BackDestiCode.Data.Models;
+
+namespace BackDestiCode.DTOs
 {
     public class RutasDto
     {
@@ -8,9 +10,14 @@
         public string Lugar_Salida { get; set; }
         public string Lugar_Destino { get; set; }
         public DateTime Fecha_Salida { get; set; }
-        public double Costo { get; set; }
+        public decimal Costo { get; set; }
         public int Lugares_Disponibles { get; set; }
         public bool Estatus { get; set; }
+
+        //Relaciones
+        public Usuarios? Usuarios { get; set; }
+        public Vehiculos? Vehiculos { get; set; }
+
 
     }
 }

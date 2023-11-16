@@ -64,6 +64,12 @@ namespace BackDestiCode.Controllers
                 return StatusCode(500, "Error interno del servidor: " + ex.Message);
             }
         }
+
+        [HttpGet("GetVehiculosByUsuario/{Id_Usuario}")]
+        public async Task<ActionResult<List<VehiculosDto>>> GetVehiculosByIdUsuario(Guid Id_Usuario)
+        {
+            return Ok(await _unidadService.GetVehiculosByUsuario(Id_Usuario));
+        }
     }
 
 }
