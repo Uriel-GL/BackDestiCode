@@ -67,5 +67,37 @@ namespace BackDestiCode.Controllers
                 throw new Exception("Ocurrio un error inesperado intenta mas tarde");
             }
         }
+
+        [HttpPost("RecuperarContra")]
+        public async Task<IActionResult> RecuperarContra([FromBody] RecuperarContraseniaRequest request)
+        {
+            try
+            {
+                var responseMessage = await _serviceUsuario.RecuperarContrasenia(request);
+                return Ok(responseMessage);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error durante la recuperación de contraseña: {ex.Message}");
+                return StatusCode(500, "Error interno del servidor.");
+            }
+        }
+
+        [HttpPost("ResetearContrasenia")]
+        public async Task<IActionResult> ResetearContrasenia([FromBody] RecuperarContraseniaRequest request)
+        {
+            try
+            {
+                var responseMessage = await _serviceUsuario.ResetearContrasenia(request);
+
+                return Ok(responseMessage);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error durante el restablecimiento de contraseña: {ex.Message}");
+                return StatusCode(500, "Error interno del servidor.");
+            }
+        }
+
     }
 }

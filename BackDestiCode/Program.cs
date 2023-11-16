@@ -28,6 +28,9 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //Configuracion de variables de JWT
 builder.Services.Configure<AppJwtOptions>(builder.Configuration.GetSection("JwtSettings"));
 
+//Asignar valores de la configuración del correo
+builder.Services.Configure<ConfiguracionesCorreo>(builder.Configuration.GetSection("CorreoConfig"));
+
 // Configuracion de la inyeccion de dependencias de las Interfaces y Repositorios de la app  
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
@@ -35,8 +38,13 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IServiceUnidad, ServiceUnidad>();
 //Configuración de la encriptación
 builder.Services.AddScoped<IEncrypt, Encrypt>();
+<<<<<<< HEAD
+builder.Services.AddSingleton<ITokenDiccionario, TokenDiccionario>();
+
+=======
 //Configuracion de ruta
 builder.Services.AddScoped<IRutasService, RutasService>();
+>>>>>>> 65dcdda3284655cd005ce5f045ab2f011689fa92
 
 // Configuracion de uso de Jwt en la Api 
 var keySecret = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("JwtSettings:Secret"));
