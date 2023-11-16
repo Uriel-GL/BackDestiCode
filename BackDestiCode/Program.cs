@@ -38,8 +38,13 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IServiceUnidad, ServiceUnidad>();
 //Configuración de la encriptación
 builder.Services.AddScoped<IEncrypt, Encrypt>();
+<<<<<<< HEAD
 builder.Services.AddSingleton<ITokenDiccionario, TokenDiccionario>();
 
+=======
+//Configuracion de ruta
+builder.Services.AddScoped<IRutasService, RutasService>();
+>>>>>>> 65dcdda3284655cd005ce5f045ab2f011689fa92
 
 // Configuracion de uso de Jwt en la Api 
 var keySecret = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("JwtSettings:Secret"));

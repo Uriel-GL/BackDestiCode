@@ -41,7 +41,38 @@ namespace BackDestiCode.Controllers
                 return StatusCode(500, "Error interno del servidor: " + ex.Message);
             }
         }
+
+
+        [HttpDelete("{id_Unidad}")]
+        public async Task<IActionResult> EliminarUnidad(Guid id_Unidad)
+        {
+            try
+            {
+                bool resultado = await _unidadService.Eliminar(id_Unidad);
+
+                if (resultado)
+                {
+                    return Ok("Unidad eliminada con éxito.");
+                }
+                else
+                {
+                    return NotFound("No se encontró la unidad con el Id_Unidad proporcionado.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor: " + ex.Message);
+            }
+        }
+
+        [HttpGet("GetVehiculosByUsuario/{Id_Usuario}")]
+        public async Task<ActionResult<List<VehiculosDto>>> GetVehiculosByIdUsuario(Guid Id_Usuario)
+        {
+            return Ok(await _unidadService.GetVehiculosByUsuario(Id_Usuario));
+        }
     }
 
 }
+
+
 

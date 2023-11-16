@@ -1,8 +1,9 @@
-﻿namespace BackDestiCode.Data.Models
+﻿using BackDestiCode.Data.Models;
+
+namespace BackDestiCode.DTOs
 {
-    public class Rutas
+    public class RutasDto
     {
-        //El Id _ruta se modifico a guid
         public Guid Id_Ruta { get; set; }
         public Guid Id_Unidad { get; set; }
         public Guid Id_Usuario { get; set; }
@@ -14,8 +15,9 @@
         public bool Estatus { get; set; }
 
         //Relaciones
-        public Usuarios Usuarios { get; set; }
-        public Vehiculos Vehiculos { get; set; }
-        public ICollection<Reservaciones>? Reservaciones { get; set; }
+        public Usuarios? Usuarios { get; set; }
+        public Vehiculos? Vehiculos { get; set; }
+
+
     }
 }

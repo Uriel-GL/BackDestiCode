@@ -16,7 +16,7 @@ namespace BackDestiCode.DTOs
         public string Correo { get; set; }
         public bool Estatus { get; set; }
 
-        //Foreign Key 
-        //public Usuarios Usuario { get; set; }
+        //Relaciones
+        public Usuarios? Usuarios { get; set; } = null;
     }
 }

@@ -32,11 +32,11 @@ namespace BackDestiCode.Data.Context
 
                 dp.HasMany(u => u.Vehiculos)
                     .WithOne(dp => dp.Usuarios)
-                    .HasForeignKey(fk => fk.Id_Unidad);
+                    .HasForeignKey(fk => fk.Id_Usuario);
 
                 dp.HasMany(u => u.Rutas)
                     .WithOne(dp => dp.Usuarios)
-                    .HasForeignKey(fk => fk.Id_Ruta);
+                    .HasForeignKey(fk => fk.Id_Usuario);
 
             });
 
@@ -62,6 +62,10 @@ namespace BackDestiCode.Data.Context
             modelBuilder.Entity<Vehiculos>(dp =>
             {
                 dp.HasKey(pk => pk.Id_Unidad);
+
+                dp.HasMany(u => u.Rutas)
+                    .WithOne(dp => dp.Vehiculos)
+                    .HasForeignKey(fk => fk.Id_Ruta);
 
             });
 

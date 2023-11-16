@@ -12,6 +12,7 @@ C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\Azure.Identity.dll
 C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
 C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
 C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -78,6 +79,7 @@ C:\C# Projects\BackDestiCode\BackDestiCode\obj\Debug\net7.0\refint\BackDestiCode
 C:\C# Projects\BackDestiCode\BackDestiCode\obj\Debug\net7.0\BackDestiCode.pdb
 C:\C# Projects\BackDestiCode\BackDestiCode\obj\Debug\net7.0\BackDestiCode.genruntimeconfig.cache
 C:\C# Projects\BackDestiCode\BackDestiCode\obj\Debug\net7.0\ref\BackDestiCode.dll
+<<<<<<< HEAD
 C:\Users\BIENVENIDO\Source\Repos\BackDestiCode\BackDestiCode\bin\Debug\net7.0\appsettings.Development.json
 C:\Users\BIENVENIDO\Source\Repos\BackDestiCode\BackDestiCode\bin\Debug\net7.0\appsettings.json
 C:\Users\BIENVENIDO\Source\Repos\BackDestiCode\BackDestiCode\bin\Debug\net7.0\BackDestiCode.exe
@@ -238,3 +240,9 @@ C:\Users\DiegoGo Ar\source\repos\BackDestiCode\BackDestiCode\obj\Debug\net7.0\re
 C:\Users\DiegoGo Ar\source\repos\BackDestiCode\BackDestiCode\obj\Debug\net7.0\BackDestiCode.pdb
 C:\Users\DiegoGo Ar\source\repos\BackDestiCode\BackDestiCode\obj\Debug\net7.0\BackDestiCode.genruntimeconfig.cache
 C:\Users\DiegoGo Ar\source\repos\BackDestiCode\BackDestiCode\obj\Debug\net7.0\ref\BackDestiCode.dll
+=======
+C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\System.Net.Http.Formatting.dll
+C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\System.Web.Http.dll
+C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\C# Projects\BackDestiCode\BackDestiCode\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+>>>>>>> 65dcdda3284655cd005ce5f045ab2f011689fa92
