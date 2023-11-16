@@ -59,6 +59,7 @@ namespace BackDestiCode.Services.Repository
                 _authResponse.Mensaje = "Ok";
                 _authResponse.Resultado = true;
                 _authResponse.Token = token;
+                _authResponse.Usuario = usuario.Id_Usuario;
             }
             else
             {

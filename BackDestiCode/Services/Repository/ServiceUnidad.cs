@@ -3,6 +3,7 @@ using BackDestiCode.Data.Context;
 using BackDestiCode.Data.Models;
 using BackDestiCode.DTOs;
 using BackDestiCode.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackDestiCode.Services.Repository
 {
@@ -99,6 +100,20 @@ namespace BackDestiCode.Services.Repository
             }
         }
 
-
+        public async Task<List<VehiculosDto>> GetVehiculosByUsuario(Guid Id_Usuario)
+        {
+            try
+            {
+                var vehiculos = await _context.Vehiculos.Where(pk => pk.Id_Usuario.Equals(Id_Usuario)).ToListAsync();
+                var response = _mapper.Map<List<VehiculosDto>>(vehiculos);
+               
+                return response;
+            }
+            catch(Exception ex)
+            {
+                string msg = ex.Message;
+                throw new Exception("Ocurrio un error al consultar tu vehiculos.");
+            }
+        }
     }
 }

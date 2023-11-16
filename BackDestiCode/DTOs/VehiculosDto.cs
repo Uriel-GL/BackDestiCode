@@ -1,4 +1,6 @@
-﻿namespace BackDestiCode.DTOs
+﻿using BackDestiCode.Data.Models;
+
+namespace BackDestiCode.DTOs
 {
     public class VehiculosDto
     {
@@ -8,5 +10,9 @@
         public string Placa { get; set; }
         public string Imagen { get; set; }
         public string Modelo { get; set; }
+
+        //Relaciones 
+        public Usuarios Usuarios { get; set; }
+        public ICollection<Rutas> Rutas { get; set; }
     }
 }

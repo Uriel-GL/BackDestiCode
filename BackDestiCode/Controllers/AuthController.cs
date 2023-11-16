@@ -39,11 +39,12 @@ namespace BackDestiCode.Controllers
         {
             try
             {
-                _encrypt.AESEncrypt(registro.Usuario.Contrasenia);
+                var hasPass = _encrypt.AESEncrypt(registro.Usuario.Contrasenia);
                 var usuario = _mapper.Map<UsuariosDto, Usuarios>(registro.Usuario);
                 var datosUsuario = _mapper.Map<DatosPersonalesDto, DatosPersonales>(registro.DatosPersonales);
 
                 usuario.Id_Usuario = Guid.NewGuid();
+                usuario.Contrasenia = hasPass;
                 usuario.Fecha_Registro = DateTime.UtcNow;
                 usuario.Estatus = true;
 
