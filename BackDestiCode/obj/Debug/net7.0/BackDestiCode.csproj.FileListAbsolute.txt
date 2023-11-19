@@ -168,3 +168,4 @@ C:\Users\DiegoGo Ar\Source\Repos\BackDestiCode\BackDestiCode\obj\Debug\net7.0\re
 C:\Users\DiegoGo Ar\Source\Repos\BackDestiCode\BackDestiCode\obj\Debug\net7.0\BackDestiCode.pdb
 C:\Users\DiegoGo Ar\Source\Repos\BackDestiCode\BackDestiCode\obj\Debug\net7.0\BackDestiCode.genruntimeconfig.cache
 C:\Users\DiegoGo Ar\Source\Repos\BackDestiCode\BackDestiCode\obj\Debug\net7.0\ref\BackDestiCode.dll
+C:\C# Projects\BackDestiCode\BackDestiCode\obj\Debug\net7.0\BackDestiCode.sourcelink.json

@@ -115,5 +115,28 @@ namespace BackDestiCode.Services.Repository
                 throw new Exception("Ocurrio un error al consultar tu vehiculos.");
             }
         }
+
+        public async Task<VehiculosDto> GetVehiculoById(Guid Id_Unidad)
+        {
+            try
+            {
+                var response = await _context.Vehiculos.Where(x => x.Id_Unidad.Equals(Id_Unidad))
+                    .Select(vehiculo => new VehiculosDto
+                    {
+                        Id_Unidad = Id_Unidad,
+                        Color = vehiculo.Color,
+                        Imagen = vehiculo.Imagen,
+                        Modelo = vehiculo.Modelo,
+                        Placa = vehiculo.Placa
+                    }).FirstOrDefaultAsync();
+
+                return response;
+            }
+            catch(Exception ex)
+            {
+                string message = ex.Message;
+                throw new Exception("Ocurrio un error al intentar cosultar la info.");
+            }
+        }
     }
 }
