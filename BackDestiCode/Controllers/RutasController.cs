@@ -39,7 +39,7 @@ namespace BackDestiCode.Controllers
         }
 
         [HttpGet("GetTicketsByUser/{Id_Usuario}")]
-        public async Task<ActionResult<List<RutasDto>>> GetTicketsByIdUsuario(Guid Id_Usuario)
+        public async Task<ActionResult<List<ReservacionesDto>>> GetTicketsByIdUsuario(Guid Id_Usuario)
         {
             return Ok(await _rutasService.GetTicketsReservacion(Id_Usuario));
         }

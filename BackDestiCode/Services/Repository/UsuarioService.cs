@@ -10,12 +10,14 @@ namespace BackDestiCode.Services.Repository
 {
     public class UsuarioService : IUsuarioService
     {
+        private readonly IServiceUnidad _serviceUnidad;
         private readonly ApiDbContext _context;
         private readonly IMapper _mapper;
-        public UsuarioService(ApiDbContext context, IMapper mapper)
+        public UsuarioService(ApiDbContext context, IMapper mapper, IServiceUnidad serviceUnidad)
         {
             _context = context;
             _mapper = mapper;
+            _serviceUnidad = serviceUnidad;
         }
 
         public async Task<bool> UpdateUsuario(AuthRegister datos)
@@ -75,6 +77,35 @@ namespace BackDestiCode.Services.Repository
                 }
             }
             return respuesta;
+        }
+
+        public async Task<DatosPersonalesDto> GetUsuarioById(Guid Id_Usuario)
+        {
+            try
+            {
+                var response = await _context.DatosPersonales.Where(x => x.Id_Usuario.Equals(Id_Usuario))
+                    .Select(datos => new DatosPersonalesDto
+                    {
+                        Telefono = datos.Telefono,
+                        Fecha_Nacimiento = datos.Fecha_Nacimiento,
+                        Grupo = datos.Grupo,
+                        Matricula = datos.Matricula,
+                        Correo = datos.Correo,
+                        Credencial = datos.Credencial,
+                        Usuarios = new Usuarios
+                        {
+                            Correo = datos.Correo,
+                            Nombre_Usuario = datos.Usuarios.Nombre_Usuario
+                        }
+                    }).FirstOrDefaultAsync();
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;
+                throw new Exception("Ocurrio un error al consultar tus datos intenta mas tarde");
+            }
         }
     }
 }

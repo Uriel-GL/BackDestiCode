@@ -9,7 +9,7 @@ namespace BackDestiCode.Services.Interfaces
         Task<List<RutasDto>> GetRutasByIdUsuario(Guid Id_Usuario);
         Task<RutasDto> GetRutaByIdRuta(Guid Id_Ruta);
         Task<List<UsuariosDto>> GetUsersByReservacion(Guid Id_Usuario);
-        Task<List<RutasDto>> GetTicketsReservacion(Guid Id_Usuario);
+        Task<List<ReservacionesDto>> GetTicketsReservacion(Guid Id_Usuario);
         Task<bool> Registrar(RutasDto rutas);
         Task<bool> ReservarLugar(ReservacionRequest reservacion);
         Task<bool> CancelarReservacion(CancelacionRequest cancelacion);

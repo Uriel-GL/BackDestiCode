@@ -281,21 +281,38 @@ namespace BackDestiCode.Services.Repository
             }
         }
 
-        public async Task<List<RutasDto>> GetTicketsReservacion(Guid Id_Usuario)
+        public async Task<List<ReservacionesDto>> GetTicketsReservacion(Guid Id_Usuario)
         {
             try
             {
-                var respuesta = await _context.Reservaciones.Where(x => x.Id_Usuario.Equals(Id_Usuario))
-                    .Select(reservacion => new RutasDto
+                //var respuesta = await _context.Reservaciones.Where(x => x.Id_Usuario.Equals(Id_Usuario))
+                //    .Select(reservacion => new RutasDto
+                //    {
+                //        Id_Ruta = reservacion.Id_Ruta,
+                //        Id_Usuario = reservacion.Rutas.Id_Usuario,
+                //        Fecha_Salida = reservacion.Rutas.Fecha_Salida,
+                //        Lugar_Salida = reservacion.Rutas.Lugar_Salida,
+                //        Lugar_Destino = reservacion.Rutas.Lugar_Destino,
+                //    }).ToListAsync();
+
+                var response = await _context.Reservaciones.Where(x => x.Id_Usuario.Equals(Id_Usuario))
+                    .Select(r => new ReservacionesDto
                     {
-                        Id_Ruta = reservacion.Id_Ruta,
-                        Id_Usuario = reservacion.Rutas.Id_Usuario,
-                        Fecha_Salida = reservacion.Rutas.Fecha_Salida,
-                        Lugar_Salida = reservacion.Rutas.Lugar_Salida,
-                        Lugar_Destino = reservacion.Rutas.Lugar_Destino,
+                        Id_Reservacion = r.Id_Reservacion,
+                        Num_Asientos = r.Num_Asientos,
+                        Id_Ruta = r.Id_Ruta,
+                        Id_Usuario = r.Id_Usuario,
+                        Rutas = new Rutas
+                        {
+                            Id_Ruta = r.Rutas.Id_Ruta,
+                            Id_Usuario = r.Rutas.Id_Usuario,
+                            Fecha_Salida = r.Rutas.Fecha_Salida,
+                            Lugar_Salida = r.Rutas.Lugar_Salida,
+                            Lugar_Destino = r.Rutas.Lugar_Destino
+                        }
                     }).ToListAsync();
 
-                return respuesta;
+                return response;
             }
             catch(Exception ex)
             {
