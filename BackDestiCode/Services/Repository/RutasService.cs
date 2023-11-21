@@ -70,7 +70,7 @@ namespace BackDestiCode.Services.Repository
                     var rutasDto = new RutasDto
                     {
 
-                        Id_Ruta = rutas.Id_Unidad,
+                        Id_Ruta = Guid.NewGuid(),
                         Id_Unidad = rutas.Id_Unidad,
                         Id_Usuario = rutas.Id_Usuario,
                         Lugar_Salida = rutas.Lugar_Salida,
