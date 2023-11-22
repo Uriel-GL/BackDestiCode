@@ -189,7 +189,7 @@ namespace BackDestiCode.Services.Repository
             catch (Exception ex)
             {
                 string msg = ex.Message;
-                throw new Exception("Ocurrio un error al consultar las rutas, intenta mas tarde");
+                throw new Exception("Ocurrio un error al consultar las rutas, intenta mas tarde " + msg);
             }
         }
 
@@ -246,30 +246,24 @@ namespace BackDestiCode.Services.Repository
             }
         }
 
-        public async Task<List<UsuariosDto>> GetUsersByReservacion(Guid Id_Usuario)
+        public async Task<List<UsuariosDto>> GetUsersByReservacion(Guid Id_Ruta)
         {
             try
-            {
-                //var listaUsuariosDeRuta = new List<Usuarios>();
-                //var response = await _context.Reservaciones
-                //    .Where(pk => pk.Id_Usuario.Equals(Id_Usuario))
-                //    .ToListAsync();
-
-                //foreach ( var item in response)
-                //{
-                //    var user = _context.Usuarios.Where(pk => pk.Id_Usuario.Equals(item.Id_Usuario)).FirstOrDefault();
-                //    listaUsuariosDeRuta.Add(user);
-                //}
-
-                //var data = _mapper.Map<List<Usuarios>, List<UsuariosDto>>(listaUsuariosDeRuta);
-
-                //return data;
-                var usuarios = await _context.Reservaciones.Where(x => x.Id_Usuario.Equals(Id_Usuario))
+            { 
+                var usuarios = await _context.Reservaciones.Where(x => x.Id_Ruta.Equals(Id_Ruta))
+                    .Include(x => x.Usuarios)
+                        .ThenInclude(d => d.DatosPersonales)
                     .Select(reservacion => new UsuariosDto
                     {
-                        Id_Usuario = reservacion.Id_Usuario,
                         Nombre_Usuario = reservacion.Usuarios.Nombre_Usuario,
-                        Correo = reservacion.Usuarios.Correo
+                        Correo = reservacion.Usuarios.Correo,
+                        DatosPersonales = reservacion.Usuarios.DatosPersonales.Select(dp => new DatosPersonales
+                        {
+                            Telefono = dp.Telefono,
+                            Grupo = dp.Grupo,
+                            Nombre_Completo = dp.Nombre_Completo,
+                        }).ToList()
+
                     }).ToListAsync();
 
                 return usuarios;
