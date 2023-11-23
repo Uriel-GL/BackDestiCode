@@ -157,24 +157,33 @@ namespace BackDestiCode.Services.Repository
         {
             try
             {
+                var reservaciones = await _context.Reservaciones.Where(x => x.Id_Ruta.Equals(id_Ruta)).ToListAsync();
+
+                // Eliminar las reservaciones asociadas a la ruta
+                foreach (var reservacion in reservaciones)
+                {
+                    _context.Reservaciones.Remove(reservacion);
+                }
+
                 var rutaAEliminar = await _context.Rutas.FindAsync(id_Ruta);
 
                 if (rutaAEliminar == null)
                 {
-                    return false; // La unidad no existe
+                    return false; // La ruta no existe
                 }
 
                 _context.Rutas.Remove(rutaAEliminar);
                 await _context.SaveChangesAsync();
-                return true; // Éxito al eliminar la unidad
+                return true; // Éxito al eliminar la ruta
             }
             catch (Exception ex)
             {
                 // Registra la excepción para depuración
                 var msg = ex.Message;
-                return false; // Error al intentar eliminar la unidad
+                return false; // Error al intentar eliminar la ruta
             }
         }
+
 
         public async Task<List<RutasDto>> GetAllRutas()
         {
@@ -314,6 +323,48 @@ namespace BackDestiCode.Services.Repository
                 throw new Exception("Ocurrio un error al intenar consultar tus reservaciones");
             }
         }
+
+        public async Task<List<ReservacionesDto>> GetReservacionesByRuta(Guid Id_Ruta)
+        {
+            try
+            {
+                var reservaciones = await _context.Reservaciones
+                    .Where(r => r.Id_Ruta.Equals(Id_Ruta))
+                    .ToListAsync();
+
+                return _mapper.Map<List<ReservacionesDto>>(reservaciones);
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;
+                throw new Exception("Ocurrió un error al consultar las reservaciones de la ruta. " + msg);
+            }
+        }
+
+        public async Task<bool> EliminarReservacion(Guid id_Reservacion)
+        {
+            try
+            {
+                var reservacionAEliminar = await _context.Reservaciones.FindAsync(id_Reservacion);
+
+                if (reservacionAEliminar == null)
+                {
+                    return false; // La reservación no existe
+                }
+
+                _context.Reservaciones.Remove(reservacionAEliminar);
+                await _context.SaveChangesAsync();
+                return true; // Éxito al eliminar la reservación
+            }
+            catch (Exception ex)
+            {
+                // Registra la excepción para depuración
+                var msg = ex.Message;
+                return false; // Error al intentar eliminar la reservación
+            }
+        }
+
+
     }
 
 
