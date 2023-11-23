@@ -13,7 +13,7 @@ namespace BackDestiCode.DTOs
         public bool Estatus { get; set; }
 
         //Relaciones
-        public Usuarios Usuarios { get; set; }
-        public Rutas Rutas { get; set; }
+        public Usuarios? Usuarios { get; set; }
+        public Rutas? Rutas { get; set; }
     }
 }

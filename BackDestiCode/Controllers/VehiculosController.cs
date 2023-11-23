@@ -1,4 +1,6 @@
-﻿using BackDestiCode.DTOs;
+﻿using AutoMapper;
+using BackDestiCode.Data.Models;
+using BackDestiCode.DTOs;
 using BackDestiCode.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +12,22 @@ namespace BackDestiCode.Controllers
     public class VehiculosController : ControllerBase
     {
         private readonly IServiceUnidad _unidadService;
+        private readonly IMapper _mapper;
 
-        public VehiculosController(IServiceUnidad unidadService)
+        public VehiculosController(IServiceUnidad unidadService, IMapper mapper)
         {
             _unidadService = unidadService;
+            _mapper = mapper;
         }
-        [HttpPost]
+
+        [HttpPut("ActualizarVehiculo")]
+        public async Task<ActionResult> ActualizarVehiculo([FromBody] VehiculosDto vehiculos)
+        {
+            var data = _mapper.Map<Vehiculos>(vehiculos);
+            return Ok(await _unidadService.Actualizar(data));
+        }
+
+        [HttpPost("RegistrarVehiculo")]
         public async Task<IActionResult> RegistrarUnidad([FromBody] VehiculosDto vehiculosDto)
         {
             try
@@ -42,13 +54,12 @@ namespace BackDestiCode.Controllers
             }
         }
 
-
-        [HttpDelete("{id_Unidad}")]
-        public async Task<IActionResult> EliminarUnidad(Guid id_Unidad)
+        [HttpDelete("EliminarVehiculo/{Id_Unidad}")]
+        public async Task<IActionResult> EliminarUnidad(Guid Id_Unidad)
         {
             try
             {
-                bool resultado = await _unidadService.Eliminar(id_Unidad);
+                bool resultado = await _unidadService.Eliminar(Id_Unidad);
 
                 if (resultado)
                 {
@@ -69,6 +80,12 @@ namespace BackDestiCode.Controllers
         public async Task<ActionResult<List<VehiculosDto>>> GetVehiculosByIdUsuario(Guid Id_Usuario)
         {
             return Ok(await _unidadService.GetVehiculosByUsuario(Id_Usuario));
+        }
+
+        [HttpGet("VehiculoById/{Id_Unidad}")]
+        public async Task<ActionResult<VehiculosDto>> GetVehiculoById(Guid Id_Unidad)
+        {
+            return Ok(await _unidadService.GetVehiculoById(Id_Unidad));
         }
     }
 

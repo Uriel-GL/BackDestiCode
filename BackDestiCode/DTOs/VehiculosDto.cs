@@ -12,7 +12,7 @@ namespace BackDestiCode.DTOs
         public string Modelo { get; set; }
 
         //Relaciones 
-        public Usuarios Usuarios { get; set; }
-        public ICollection<Rutas> Rutas { get; set; }
+        public Usuarios? Usuarios { get; set; }
+        public ICollection<Rutas>? Rutas { get; set; }
     }
 }

@@ -39,15 +39,15 @@ namespace BackDestiCode.Controllers
         }
 
         [HttpGet("GetTicketsByUser/{Id_Usuario}")]
-        public async Task<ActionResult<List<RutasDto>>> GetTicketsByIdUsuario(Guid Id_Usuario)
+        public async Task<ActionResult<List<ReservacionesDto>>> GetTicketsByIdUsuario(Guid Id_Usuario)
         {
             return Ok(await _rutasService.GetTicketsReservacion(Id_Usuario));
         }
 
-        [HttpGet("GetUsuariosReservaronRuta/{Id_Usuario}")]
-        public async Task<ActionResult<List<UsuariosDto>>> GetUsuariosReservaronRuta(Guid Id_Usuario)
+        [HttpGet("GetUsuariosReservaronRuta/{Id_Ruta}")]
+        public async Task<ActionResult<List<UsuariosDto>>> GetUsuariosReservaronRuta(Guid Id_Ruta)
         {
-            return Ok(await _rutasService.GetUsersByReservacion(Id_Usuario));
+            return Ok(await _rutasService.GetUsersByReservacion(Id_Ruta));
         }
 
         [HttpPost("RegistarRuta")]
@@ -109,7 +109,7 @@ namespace BackDestiCode.Controllers
             }
         }
 
-        [HttpDelete("{id_Ruta}")]
+        [HttpDelete("EliminarRuta/{id_Ruta}")]
         public async Task<IActionResult> EliminarRuta(Guid id_Ruta)
         {
             try
