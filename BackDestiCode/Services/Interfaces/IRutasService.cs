@@ -14,5 +14,6 @@ namespace BackDestiCode.Services.Interfaces
         Task<bool> ReservarLugar(ReservacionRequest reservacion);
         Task<bool> CancelarReservacion(CancelacionRequest cancelacion);
         Task<bool> EliminarManual(Guid id_Ruta);
+     
     }
 }
