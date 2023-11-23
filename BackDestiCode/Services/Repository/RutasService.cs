@@ -184,7 +184,6 @@ namespace BackDestiCode.Services.Repository
             }
         }
 
-
         public async Task<List<RutasDto>> GetAllRutas()
         {
             try
@@ -324,49 +323,6 @@ namespace BackDestiCode.Services.Repository
             }
         }
 
-        public async Task<List<ReservacionesDto>> GetReservacionesByRuta(Guid Id_Ruta)
-        {
-            try
-            {
-                var reservaciones = await _context.Reservaciones
-                    .Where(r => r.Id_Ruta.Equals(Id_Ruta))
-                    .ToListAsync();
-
-                return _mapper.Map<List<ReservacionesDto>>(reservaciones);
-            }
-            catch (Exception ex)
-            {
-                string msg = ex.Message;
-                throw new Exception("Ocurrió un error al consultar las reservaciones de la ruta. " + msg);
-            }
-        }
-
-        public async Task<bool> EliminarReservacion(Guid id_Reservacion)
-        {
-            try
-            {
-                var reservacionAEliminar = await _context.Reservaciones.FindAsync(id_Reservacion);
-
-                if (reservacionAEliminar == null)
-                {
-                    return false; // La reservación no existe
-                }
-
-                _context.Reservaciones.Remove(reservacionAEliminar);
-                await _context.SaveChangesAsync();
-                return true; // Éxito al eliminar la reservación
-            }
-            catch (Exception ex)
-            {
-                // Registra la excepción para depuración
-                var msg = ex.Message;
-                return false; // Error al intentar eliminar la reservación
-            }
-        }
-
-
     }
-
-
 }
 
