@@ -22,5 +22,11 @@ namespace BackDestiCode.Controllers
             return Ok(await _usuarioService.GetUsuarioById(Id_Usuario));
         }
 
+        [HttpPut("ActualizarDatosPersonales")]
+        public async Task<IActionResult> UpdateUsuarioInfo([FromBody] AuthRegister authUpdate)
+        {
+            return Ok(await _usuarioService.UpdateUsuario(authUpdate));
+        }
+
     }
 }

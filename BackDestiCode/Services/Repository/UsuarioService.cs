@@ -2,6 +2,7 @@
 using BackDestiCode.Data.Context;
 using BackDestiCode.Data.Models;
 using BackDestiCode.DTOs;
+using BackDestiCode.Security;
 using BackDestiCode.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Eventing.Reader;
@@ -13,11 +14,13 @@ namespace BackDestiCode.Services.Repository
         private readonly IServiceUnidad _serviceUnidad;
         private readonly ApiDbContext _context;
         private readonly IMapper _mapper;
-        public UsuarioService(ApiDbContext context, IMapper mapper, IServiceUnidad serviceUnidad)
+        private readonly IEncrypt _encrypt;
+        public UsuarioService(ApiDbContext context, IMapper mapper, IServiceUnidad serviceUnidad, IEncrypt encrypt)
         {
             _context = context;
             _mapper = mapper;
             _serviceUnidad = serviceUnidad;
+            _encrypt = encrypt;
         }
 
         public async Task<bool> UpdateUsuario(AuthRegister datos)
@@ -27,13 +30,13 @@ namespace BackDestiCode.Services.Repository
             {
                 var usuario = await _context.Usuarios.Where(u => u.Id_Usuario.Equals(datos.Usuario.Id_Usuario))
                 .FirstOrDefaultAsync();
-                var datosUsuario = await _context.DatosPersonales.FindAsync(datos.Usuario.Id_Usuario);
+                var datosUsuario = await _context.DatosPersonales.Where(dp => dp.Id_Usuario.Equals(datos.DatosPersonales.Id_Usuario)).FirstOrDefaultAsync();
 
                 if (usuario != null)
                 {
-                    usuario.Nombre_Usuario = datos.Usuario.Nombre_Usuario;
+                    usuario.Nombre_Usuario = datos.DatosPersonales.Nombre_Completo;
                     usuario.Correo = datos.Usuario.Correo;
-                    usuario.Contrasenia = datos.Usuario.Contrasenia;
+                    usuario.Contrasenia = _encrypt.AESEncrypt(datos.Usuario.Contrasenia);
 
                     datosUsuario.Nombre_Completo = datos.DatosPersonales.Nombre_Completo;
                     datosUsuario.Fecha_Nacimiento = datos.DatosPersonales.Fecha_Nacimiento;
@@ -86,6 +89,11 @@ namespace BackDestiCode.Services.Repository
                 var response = await _context.DatosPersonales.Where(x => x.Id_Usuario.Equals(Id_Usuario))
                     .Select(datos => new DatosPersonalesDto
                     {
+                        Id_DatosPersonales = datos.Id_DatosPersonales,
+                        Estatus = datos.Estatus,
+                        Nombre_Completo = datos.Nombre_Completo,
+                        Id_Usuario = datos.Id_Usuario,
+                        Universidad = datos.Universidad,
                         Telefono = datos.Telefono,
                         Fecha_Nacimiento = datos.Fecha_Nacimiento,
                         Grupo = datos.Grupo,
@@ -95,7 +103,10 @@ namespace BackDestiCode.Services.Repository
                         Usuarios = new Usuarios
                         {
                             Correo = datos.Correo,
-                            Nombre_Usuario = datos.Usuarios.Nombre_Usuario
+                            Nombre_Usuario = datos.Usuarios.Nombre_Usuario,
+                            Contrasenia = _encrypt.AesDecrypt(datos.Usuarios.Contrasenia),
+                            Id_Usuario = datos.Id_Usuario,
+                            Estatus = datos.Usuarios.Estatus
                         }
                     }).FirstOrDefaultAsync();
 
