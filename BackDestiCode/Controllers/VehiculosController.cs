@@ -20,7 +20,7 @@ namespace BackDestiCode.Controllers
             _mapper = mapper;
         }
 
-        [HttpPut("ActualizarVehiculo")]
+        [HttpPost("ActualizarVehiculo")]
         public async Task<ActionResult> ActualizarVehiculo([FromBody] VehiculosDto vehiculos)
         {
             var data = _mapper.Map<Vehiculos>(vehiculos);
