@@ -109,12 +109,12 @@ namespace BackDestiCode.Controllers
             }
         }
 
-        [HttpDelete("EliminarRuta/{id_Ruta}")]
-        public async Task<IActionResult> EliminarRuta(Guid id_Ruta)
+        [HttpDelete("EliminarRuta/{Id_Ruta}")]
+        public async Task<IActionResult> EliminarRuta(Guid Id_Ruta)
         {
             try
             {
-                bool resultado = await _rutasService.EliminarManual(id_Ruta);
+                bool resultado = await _rutasService.EliminarManual(Id_Ruta);
 
                 if (resultado)
                 {
