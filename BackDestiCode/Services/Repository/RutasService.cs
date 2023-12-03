@@ -265,12 +265,20 @@ namespace BackDestiCode.Services.Repository
                     {
                         Nombre_Usuario = reservacion.Usuarios.Nombre_Usuario,
                         Correo = reservacion.Usuarios.Correo,
-                        DatosPersonales = reservacion.Usuarios.DatosPersonales.Select(dp => new DatosPersonales
+                        DatosPersonales = reservacion.Usuarios.DatosPersonales.Where(x => x.Id_Usuario.Equals(reservacion.Id_Usuario))
+                        .Select(dp => new DatosPersonales
                         {
                             Telefono = dp.Telefono,
                             Grupo = dp.Grupo,
                             Nombre_Completo = dp.Nombre_Completo,
-                        }).ToList()
+                        }).ToList(),
+                        Reservaciones = reservacion.Usuarios.Reservaciones.Where(x => x.Id_Ruta.Equals(Id_Ruta))
+                        .Select(r => new Reservaciones
+                        {
+                            Num_Asientos = r.Num_Asientos,
+                            Id_Ruta = r.Id_Ruta,
+                            Id_Reservacion = r.Id_Reservacion
+                        }).ToList(),
 
                     }).ToListAsync();
 
